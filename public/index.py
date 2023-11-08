@@ -1,16 +1,30 @@
+"""PyScriptでライフゲームを実装するサンプルです。
+"""
 from js import document, window
 from pyodide import create_proxy
 
 class Universe:
-    def __init__(self):
-        self.width = 64
-        self.height = 64
+    """ライフゲームの宇宙を表すクラスです。
+    """
+    def __init__(self, canvasId: str, width: int, height: int):
+        """ライフゲームの宇宙を初期化します。
+        """
+        canvas = document.getElementById(canvasId)
+        canvas.width = width
+        canvas.height = height
+        ctx = canvas.getContext("2d")
+        self.canavs = canvas
+        self.ctx = ctx
+        self.width = width
+        self.height = width
         self.cells = [False] * self.width * self.height
         for idx in range(len(self.cells)):
             if idx % 2 == 0 or idx % 7 == 0:
                 self.cells[idx] = True
 
     def tick(self):
+        """ライフゲームの世代を進めます。
+        """
         next = [False] * self.width * self.height
 
         for row in range(self.height):
@@ -35,14 +49,34 @@ class Universe:
 
         self.cells = next
 
-    def getIndex(self, row, column):
+    def getIndex(self, row: int, column: int) -> int:
+        """行番号と列番号からインデックスを計算します。
+
+        Args:
+            row (int): 行番号
+            column (int): 列番号
+
+        Returns:
+            int: インデックス番号
+        """
         return row * self.width + column
 
-    def getCell(self, row, column):
+    def getCell(self, row: int, column: int) -> bool:
+        """指定した行番号と列番号のセルの状態を取得します。
+
+        Args:
+            row (int): 行番号
+            column (int): 列番号
+
+        Returns:
+            bool: セルの状態
+        """
         idx = self.getIndex(row, column)
         return self.cells[idx]
 
-    def liveNeighborCount(self, row, column):
+    def liveNeighborCount(self, row: int, column: int) -> int:
+        """指定した行番号と列番号のセルの周囲の生きたセルの数を取得します。
+        """
         count = 0
         for deltaRow in [self.height - 1, 0, 1]:
             for deltaCol in [self.width - 1, 0, 1]:
@@ -60,13 +94,10 @@ class Universe:
         return count
 
     def render(self):
-        canvas = document.getElementById("canvas")
-        canvas.width = self.width
-        canvas.height = self.height
-
-        ctx = canvas.getContext("2d")
-        ctx.fillStyle = "white"
-        ctx.fillRect(0, 0, self.width, self.height)
+        """ライフゲームの宇宙を描画します。
+        """
+        self.ctx.fillStyle = "white"
+        self.ctx.fillRect(0, 0, self.width, self.height)
 
         for row in range(self.height):
             for col in range(self.width):
@@ -74,10 +105,10 @@ class Universe:
                 cell = self.cells[idx]
 
                 if cell:
-                    ctx.fillStyle = "black"
-                    ctx.fillRect(row, col, 1, 1)
+                    self.ctx.fillStyle = "black"
+                    self.ctx.fillRect(row, col, 1, 1)
 
-universe = Universe()
+universe = Universe("canvas", 64, 64)
 
 def renderLoop():
     universe.render()
