@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "life-game-pyscrypt-py"
+version = "0.1.0"
+description = "🥩🥩🥩 最近流行りのPyScriptでライフゲームを実装してみた！"
+authors = ["osawa-koki <koki@osawa.dev>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{include = "life_game_pyscrypt"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+js = "^1.0"
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^3.0.2"
+autopep8 = "^2.0.4"
+isort = "^5.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
