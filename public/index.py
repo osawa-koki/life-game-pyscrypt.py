@@ -5,9 +5,11 @@ from js import document, window
 from pyodide import create_proxy
 # pylint: enable=import-error
 
+
 class Universe:
     """ライフゲームの宇宙を表すクラスです。
     """
+
     def __init__(self, canvas_id: str, width: int, height: int):
         """ライフゲームの宇宙を初期化します。
         """
@@ -88,8 +90,8 @@ class Universe:
                 neighbor_row = (row + delta_row) % self.height
                 neighbor_col = (column + delta_col) % self.width
                 idx = self.get_index(
-                neighbor_row,
-                neighbor_col
+                    neighbor_row,
+                    neighbor_col
                 )
                 if self.cells[idx]:
                     count += 1
@@ -110,7 +112,9 @@ class Universe:
                     self.ctx.fillStyle = "black"
                     self.ctx.fillRect(row, col, 1, 1)
 
+
 universe = Universe("canvas", 64, 64)
+
 
 def render_loop():
     """ライフゲームの宇宙を描画するループです。
@@ -118,6 +122,7 @@ def render_loop():
     universe.render()
     universe.tick()
     window.requestAnimationFrame(proxiedRenderLoop)
+
 
 proxiedRenderLoop = create_proxy(lambda _: render_loop())
 render_loop()
