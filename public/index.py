@@ -3,6 +3,7 @@
 # pylint: disable=no-name-in-module, import-error
 from js import document, window
 from pyodide import create_proxy
+
 # pylint: enable=import-error
 
 
