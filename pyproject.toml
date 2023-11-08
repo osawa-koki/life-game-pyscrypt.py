@@ -9,6 +9,7 @@ packages = [{include = "life_game_pyscrypt"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+js = "^1.0"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^3.0.2"
