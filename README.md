@@ -2,6 +2,8 @@
 
 🥩🥩🥩 最近流行りのPyScriptでライフゲームを実装してみた！  
 
+![成果物](./docs/images/fruit.gif)  
+
 ## 実行方法
 
 DevContainerに入り、以下のコマンドを実行します。  
